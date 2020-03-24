@@ -60,8 +60,12 @@ void main()
     char dayInWeek[][10] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
     int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-    dates date_in = setDate(date_in, 1);
+    dates date_in;
     dates* p_date_in = &date_in;
+    date_in.day = 1;
+    date_in.month = 1;
+    date_in.year = 2020;
+    date_in.numOfDayInWeek = 3;
     printDate(p_date_in, dayInWeek);
 
     dates date_out = setDate(date_out, 0);
@@ -71,11 +75,21 @@ void main()
     int daysCount_out = getDayCount(date_out, daysInMonth);
     printf("din = %i   dout = %i\n", daysCount_in, daysCount_out);
 
-    int def_days = getDefDays(date_in, daysCount_in, date_out, daysCount_out);
-    date_out.numOfDayInWeek = (def_days + date_in.numOfDayInWeek - 1) % 7;
-    printDate(p_date_out, dayInWeek);
+    int def_days;
     
+    if (date_out.year >= date_in.year)
+    {
+        def_days = getDefDays(date_in, daysCount_in, date_out, daysCount_out);
+        date_out.numOfDayInWeek = (def_days + date_in.numOfDayInWeek - 1) % 7;
+    } 
+    else 
+    {
+        def_days = getDefDays(date_out, daysCount_out, date_in, daysCount_in);
+        date_out.numOfDayInWeek =  (def_days - date_in.numOfDayInWeek - 1) % 7;
+        date_out.numOfDayInWeek = 6 - date_out.numOfDayInWeek;
+    }
 
+    printDate(p_date_out, dayInWeek);
 
     return;
 }
