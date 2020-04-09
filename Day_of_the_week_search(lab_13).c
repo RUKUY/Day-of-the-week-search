@@ -83,7 +83,7 @@ void main()
     else                                                                        // search past date
     {
         def_days = getDefDays(date_out, daysCount_out, date_in, daysCount_in);  // count days 
-        date_out.numOfDayInWeek =  (def_days - date_in.numOfDayInWeek - 1) % 7; // search defenition
+        date_out.numOfDayInWeek = (def_days - date_in.numOfDayInWeek - 1) % 7; // search defenition
         date_out.numOfDayInWeek = 6 - date_out.numOfDayInWeek;                  // invert day of the week
     }
 
